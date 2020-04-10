@@ -1,0 +1,37 @@
+# Miscellaneous
+/tic_tac_toe_ai/*.class
+/tic_tac_toe_ai/*.log
+/tic_tac_toe_ai/*.pyc
+/tic_tac_toe_ai/*.swp
+/tic_tac_toe_ai/.DS_Store
+/tic_tac_toe_ai/.atom/
+/tic_tac_toe_ai/.buildlog/
+/tic_tac_toe_ai/.history
+/tic_tac_toe_ai/.svn/
+
+# IntelliJ related
+/tic_tac_toe_ai/*.iml
+/tic_tac_toe_ai/*.ipr
+/tic_tac_toe_ai/*.iws
+/tic_tac_toe_ai/.idea/
+
+# The .vscode folder contains launch configuration and tasks you configure in
+# VS Code which you may wish to be included in version control, so this line
+# is commented out by default.
+#.vscode/
+
+# Flutter/Dart/Pub related
+/tic_tac_toe_ai/**/doc/api/
+/tic_tac_toe_ai/.dart_tool/
+/tic_tac_toe_ai/.flutter-plugins
+/tic_tac_toe_ai/.flutter-plugins-dependencies
+/tic_tac_toe_ai/.packages
+/tic_tac_toe_ai/.pub-cache/
+/tic_tac_toe_ai/.pub/
+/tic_tac_toe_ai/build/
+
+# Web related
+/tic_tac_toe_ai/lib/generated_plugin_registrant.dart
+
+# Exceptions to above rules.
+/tic_tac_toe_ai/!/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
