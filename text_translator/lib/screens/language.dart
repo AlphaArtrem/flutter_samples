@@ -77,15 +77,55 @@ class _ChooseLanguageState extends State<ChooseLanguage> {
   List<String> _keys;
 
   @override
-  Widget build(BuildContext context) {
+  void initState(){
+    super.initState();
     _languageToCodeVisible = _languageToCode;
     _keys = _languageToCode.keys.toList();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
         padding: EdgeInsets.fromLTRB(10, 50, 10, 0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(20),
+                boxShadow: [BoxShadow(
+                  color: Color.fromRGBO(0, 0, 205, 0.3),
+                  blurRadius: 10,
+                  offset: Offset(0, 10),
+                )],
+              ),
+              child: Container(
+                padding: EdgeInsets.all(6.5),
+                child: Row(
+                  children: <Widget>[
+                    BackButton(color: Colors.grey[700],),
+                    Expanded(
+                      child: TextFormField(
+                        decoration: InputDecoration(
+                          fillColor: Colors.white,
+                          filled : true,
+                          border: InputBorder.none,
+                          hintText: "Search By Language",
+                        ),
+                        onChanged: (val){
+                          setState(() {
+                            _languageToCodeVisible = Map.from(_languageToCode)..removeWhere((key, value) => !key.toLowerCase().startsWith(val.toLowerCase()));
+                            _keys = _languageToCodeVisible.keys.toList();
+                          });
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
         Expanded(
           child: Padding(
             padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
@@ -98,7 +138,7 @@ class _ChooseLanguageState extends State<ChooseLanguage> {
                     padding: EdgeInsets.all(6.5),
                     child: ListTile(
                       onTap: () {
-                        Navigator.of(context).pop(_keys[index]);
+                        Navigator.pop(context, _keys[index]);
                       },
                       title: Row(
                         children: <Widget>[

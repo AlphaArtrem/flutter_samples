@@ -39,7 +39,12 @@ class _HomeState extends State<Home> {
                 Expanded(
                   child: InkWell(
                     onTap: () async {
-                      await Navigator.of(context).pushNamed('/chooseLanguage');
+                      dynamic result = await Navigator.pushNamed(context, '/chooseLanguage');
+                      if(result != null){
+                        setState(() {
+                          _from = result.toString();
+                        });
+                      }
                     },
                     child: Center(
                       child: Text(_from, style: TextStyle(color: Colors.deepPurpleAccent, fontSize: 18),),
@@ -49,7 +54,14 @@ class _HomeState extends State<Home> {
                 Icon(Icons.compare_arrows, color: Colors.purpleAccent,),
                 Expanded(
                   child: InkWell(
-                    onTap: (){},
+                    onTap: () async {
+                      dynamic result = await Navigator.pushNamed(context, '/chooseLanguage');
+                      if(result != null){
+                        setState(() {
+                          _to = result.toString();
+                        });
+                      }
+                    },
                     child: Center(
                       child: Text(_to, style: TextStyle(color: Colors.deepPurpleAccent, fontSize: 18),),
                     ),
