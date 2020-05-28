@@ -6,9 +6,12 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  String _from = 'English' , _to = 'English';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Text('Text Translator', style: TextStyle(fontSize: 20, color: Colors.white),),
         backgroundColor: Colors.deepPurpleAccent,
@@ -35,7 +38,7 @@ class _HomeState extends State<Home> {
                   child: InkWell(
                     onTap: (){},
                     child: Center(
-                      child: Text("From", style: TextStyle(color: Colors.deepPurpleAccent, fontSize: 18),),
+                      child: Text(_from, style: TextStyle(color: Colors.deepPurpleAccent, fontSize: 18),),
                     ),
                   ),
                 ),
@@ -44,7 +47,7 @@ class _HomeState extends State<Home> {
                   child: InkWell(
                     onTap: (){},
                     child: Center(
-                      child: Text("To", style: TextStyle(color: Colors.deepPurpleAccent, fontSize: 18),),
+                      child: Text(_to, style: TextStyle(color: Colors.deepPurpleAccent, fontSize: 18),),
                     ),
                   ),
                 )
@@ -52,34 +55,55 @@ class _HomeState extends State<Home> {
             ),
           ),
           Expanded(
-            child: Container(
-              decoration: BoxDecoration(
-                border: Border(bottom: BorderSide(color: Colors.grey)),
-              ),
-              child: TextField(
-                decoration: InputDecoration(
-                  fillColor: Colors.white,
-                  filled : true,
-                  border: InputBorder.none,
+            child: Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(35),
+                  boxShadow: [BoxShadow(
+                    color: Color.fromRGBO(0, 0, 205, 0.3),
+                    blurRadius: 20,
+                    offset: Offset(0, 10),
+                  )],
                 ),
-                keyboardType: TextInputType.multiline,
-                maxLines: 15,
-              ),
-            ),
-          ),
-          Expanded(
-            child: Container(
-              decoration: BoxDecoration(
-                border: Border(bottom: BorderSide(color: Colors.grey)),
-              ),
-              child: TextField(
-                decoration: InputDecoration(
-                  fillColor: Colors.white,
-                  filled : true,
-                  border: InputBorder.none,
+                child: Column(
+                  children: <Widget>[
+                    Expanded(
+                      child: Container(
+                        padding: EdgeInsets.all(10.0),
+                        decoration: BoxDecoration(
+                          border: Border(bottom: BorderSide(color: Colors.grey)),
+                        ),
+                        child: TextField(
+                          decoration: InputDecoration(
+                            fillColor: Colors.white,
+                            filled : true,
+                            border: InputBorder.none,
+                          ),
+                          keyboardType: TextInputType.multiline,
+                          textInputAction: TextInputAction.done,
+                          maxLines: null,
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Container(
+                        padding: EdgeInsets.all(10.0),
+                        child: TextField(
+                          decoration: InputDecoration(
+                            fillColor: Colors.white,
+                            filled : true,
+                            border: InputBorder.none,
+                          ),
+                          keyboardType: TextInputType.multiline,
+                          textInputAction: TextInputAction.done,
+                          maxLines: null,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-                keyboardType: TextInputType.multiline,
-                maxLines: 15,
               ),
             ),
           ),
