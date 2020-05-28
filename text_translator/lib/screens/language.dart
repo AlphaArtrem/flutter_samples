@@ -97,7 +97,7 @@ class _ChooseLanguageState extends State<ChooseLanguage> {
                 borderRadius: BorderRadius.circular(20),
                 boxShadow: [BoxShadow(
                   color: Color.fromRGBO(0, 0, 205, 0.3),
-                  blurRadius: 10,
+                  blurRadius: 20,
                   offset: Offset(0, 10),
                 )],
               ),
@@ -127,29 +127,32 @@ class _ChooseLanguageState extends State<ChooseLanguage> {
               ),
             ),
         Expanded(
-          child: Padding(
-            padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
-            child: ListView.builder(
-              itemCount: _keys.length,
-              itemBuilder: (context, index){
-                return Card(
-                  elevation: 1,
-                  child: Container(
-                    padding: EdgeInsets.all(6.5),
-                    child: ListTile(
-                      onTap: () {
-                        Navigator.pop(context, _keys[index]);
-                      },
-                      title: Row(
-                        children: <Widget>[
-                          Expanded(child: Text('${_keys[index]}', style: TextStyle(color: Colors.deepPurpleAccent),)),
-                          Icon(Icons.navigate_next, color: Colors.blueGrey,)
-                        ],
+          child: Container(
+            padding: EdgeInsets.fromLTRB(0, 5.0, 0, 0),
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
+              child: ListView.builder(
+                itemCount: _keys.length,
+                itemBuilder: (context, index){
+                  return Card(
+                    elevation: 1,
+                    child: Container(
+                      padding: EdgeInsets.all(6.5),
+                      child: ListTile(
+                        onTap: () {
+                          Navigator.pop(context, {'language' : _keys[index], 'code' : _languageToCodeVisible[_keys[index]]});
+                        },
+                        title: Row(
+                          children: <Widget>[
+                            Expanded(child: Text('${_keys[index]}', style: TextStyle(color: Colors.deepPurpleAccent),)),
+                            Icon(Icons.navigate_next, color: Colors.blueGrey,)
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                );
-              },
+                  );
+                },
+              ),
             ),
           ),
         ),],

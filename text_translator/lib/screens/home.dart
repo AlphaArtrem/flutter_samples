@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:translator/translator.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -7,11 +8,16 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  String _from = 'English' , _to = 'English';
-  final TextEditingController _controller = TextEditingController();
+  final TextEditingController _controllerInput = TextEditingController();
+  final TextEditingController _controllerOutput = TextEditingController();
+  final _translator = GoogleTranslator();
+  MediaQueryData _deviceData;
+  Map<String, String> _from = {'language': 'English', 'code' : 'en'} , _to = {'language': 'French', 'code' : 'fr'};
+  String _result = ' ';
 
   @override
   Widget build(BuildContext context) {
+    _deviceData = MediaQuery.of(context);
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
@@ -42,12 +48,12 @@ class _HomeState extends State<Home> {
                       dynamic result = await Navigator.pushNamed(context, '/chooseLanguage');
                       if(result != null){
                         setState(() {
-                          _from = result.toString();
+                          _from = result;
                         });
                       }
                     },
                     child: Center(
-                      child: Text(_from, style: TextStyle(color: Colors.deepPurpleAccent, fontSize: 18),),
+                      child: Text(_from['language'].toString(), style: TextStyle(color: Colors.deepPurpleAccent, fontSize: 18),),
                     ),
                   ),
                 ),
@@ -58,12 +64,12 @@ class _HomeState extends State<Home> {
                       dynamic result = await Navigator.pushNamed(context, '/chooseLanguage');
                       if(result != null){
                         setState(() {
-                          _to = result.toString();
+                          _to = result;
                         });
                       }
                     },
                     child: Center(
-                      child: Text(_to, style: TextStyle(color: Colors.deepPurpleAccent, fontSize: 18),),
+                      child: Text(_to['language'].toString(), style: TextStyle(color: Colors.deepPurpleAccent, fontSize: 18),),
                     ),
                   ),
                 )
@@ -94,7 +100,7 @@ class _HomeState extends State<Home> {
                               border: Border(bottom: BorderSide(color: Colors.grey)),
                             ),
                             child: TextField(
-                              controller: _controller,
+                              controller: _controllerInput,
                               decoration: InputDecoration(
                                 fillColor: Colors.white,
                                 filled : true,
@@ -103,6 +109,18 @@ class _HomeState extends State<Home> {
                               keyboardType: TextInputType.multiline,
                               textInputAction: TextInputAction.done,
                               maxLines: null,
+                              onChanged: (val) async {
+                                if(val != ""){
+                                  _translator.translate(val, from: _from['code'].toString(), to: _to['code'].toString()).then((s) {
+                                    setState(() {
+                                      _controllerOutput.text = s.toString();
+                                    });
+                                  });
+                                }
+                                else{
+                                  _controllerOutput.text = " ";
+                                }
+                              },
                             ),
                           ),
                         ),
@@ -110,6 +128,7 @@ class _HomeState extends State<Home> {
                           child: Container(
                             padding: EdgeInsets.all(10.0),
                             child: TextField(
+                              controller: _controllerOutput,
                               decoration: InputDecoration(
                                 fillColor: Colors.white,
                                 filled : true,
@@ -126,9 +145,9 @@ class _HomeState extends State<Home> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.fromLTRB(335, 5, 0, 0),
+                  padding: EdgeInsets.fromLTRB(_deviceData.size.width - 55, _deviceData.size.height - 775, 0, 0),
                   child: RawMaterialButton(
-                    onPressed: () => _controller.clear(),
+                    onPressed: () => _controllerInput.clear(),
                     elevation: 1.0,
                     fillColor: Colors.white,
                     child: Icon(Icons.clear, color: Colors.blueGrey,),
