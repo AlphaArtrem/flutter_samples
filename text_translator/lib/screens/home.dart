@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
@@ -7,6 +8,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   String _from = 'English' , _to = 'English';
+  final TextEditingController _controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +38,9 @@ class _HomeState extends State<Home> {
               children: <Widget>[
                 Expanded(
                   child: InkWell(
-                    onTap: (){},
+                    onTap: () async {
+                      await Navigator.of(context).pushNamed('/chooseLanguage');
+                    },
                     child: Center(
                       child: Text(_from, style: TextStyle(color: Colors.deepPurpleAccent, fontSize: 18),),
                     ),
@@ -55,56 +59,72 @@ class _HomeState extends State<Home> {
             ),
           ),
           Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(35),
-                  boxShadow: [BoxShadow(
-                    color: Color.fromRGBO(0, 0, 205, 0.3),
-                    blurRadius: 20,
-                    offset: Offset(0, 10),
-                  )],
-                ),
-                child: Column(
-                  children: <Widget>[
-                    Expanded(
-                      child: Container(
-                        padding: EdgeInsets.all(10.0),
-                        decoration: BoxDecoration(
-                          border: Border(bottom: BorderSide(color: Colors.grey)),
-                        ),
-                        child: TextField(
-                          decoration: InputDecoration(
-                            fillColor: Colors.white,
-                            filled : true,
-                            border: InputBorder.none,
-                          ),
-                          keyboardType: TextInputType.multiline,
-                          textInputAction: TextInputAction.done,
-                          maxLines: null,
-                        ),
-                      ),
+            child: Stack(
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(35),
+                      boxShadow: [BoxShadow(
+                        color: Color.fromRGBO(0, 0, 205, 0.3),
+                        blurRadius: 20,
+                        offset: Offset(0, 10),
+                      )],
                     ),
-                    Expanded(
-                      child: Container(
-                        padding: EdgeInsets.all(10.0),
-                        child: TextField(
-                          decoration: InputDecoration(
-                            fillColor: Colors.white,
-                            filled : true,
-                            border: InputBorder.none,
+                    child: Column(
+                      children: <Widget>[
+                        Expanded(
+                          child: Container(
+                            padding: EdgeInsets.all(10.0),
+                            decoration: BoxDecoration(
+                              border: Border(bottom: BorderSide(color: Colors.grey)),
+                            ),
+                            child: TextField(
+                              controller: _controller,
+                              decoration: InputDecoration(
+                                fillColor: Colors.white,
+                                filled : true,
+                                border: InputBorder.none,
+                              ),
+                              keyboardType: TextInputType.multiline,
+                              textInputAction: TextInputAction.done,
+                              maxLines: null,
+                            ),
                           ),
-                          keyboardType: TextInputType.multiline,
-                          textInputAction: TextInputAction.done,
-                          maxLines: null,
                         ),
-                      ),
+                        Expanded(
+                          child: Container(
+                            padding: EdgeInsets.all(10.0),
+                            child: TextField(
+                              decoration: InputDecoration(
+                                fillColor: Colors.white,
+                                filled : true,
+                                border: InputBorder.none,
+                              ),
+                              keyboardType: TextInputType.multiline,
+                              textInputAction: TextInputAction.done,
+                              maxLines: null,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
-              ),
+                Padding(
+                  padding: EdgeInsets.fromLTRB(335, 5, 0, 0),
+                  child: RawMaterialButton(
+                    onPressed: () => _controller.clear(),
+                    elevation: 1.0,
+                    fillColor: Colors.white,
+                    child: Icon(Icons.clear, color: Colors.blueGrey,),
+                    padding: EdgeInsets.all(8.0),
+                    shape: CircleBorder(),
+                  ),
+                ),
+              ],
             ),
           ),
         ],

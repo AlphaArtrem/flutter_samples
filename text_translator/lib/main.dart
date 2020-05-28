@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:texttranslator/screens/home.dart';
+import 'package:texttranslator/screens/language.dart';
 
 void main() => runApp(Translator());
 
@@ -16,7 +17,7 @@ class _TranslatorState extends State<Translator> {
       title: "Translator App",
       home: Home(),
       routes: {
-        '/home' : (context) => Home(),
+        '/chooseLanguage' : (context) => ChooseLanguage(),
       },
     );
   }
